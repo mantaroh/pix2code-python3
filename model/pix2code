@@ -45,7 +45,11 @@ cp ../results/${TARGET}_results/meta_dataset.npy ../bin/
 cp ../results/${TARGET}_results/words.vocab ../bin/
 
 echo "Generating code with pre-trained model..."
-./sample.py $base_path $base_path $file_name &>/dev/null
+echo "base_path: $base_path"
+echo "file_name: $file_name"
+python3 ./sample.py $base_path $base_path $file_name &>/dev/null
+
+echo "result: $?"
 
 echo "Compiling output for target platform..."
 cd ../compiler

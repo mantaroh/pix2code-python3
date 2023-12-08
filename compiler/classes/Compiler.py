@@ -17,6 +17,7 @@ class Compiler:
         self.root = Node("body", None, self.content_holder)
 
     def compile(self, input_file_path, output_file_path, rendering_function=None):
+        print(input_file_path)
         dsl_file = open(input_file_path)
         current_parent = self.root
 

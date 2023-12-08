@@ -9,6 +9,7 @@ from os.path import basename
 from classes.Sampler import *
 from classes.model.pix2code import *
 
+print("DEBUG:1")
 argv = sys.argv[1:]
 
 if len(argv) < 4:
@@ -16,6 +17,7 @@ if len(argv) < 4:
     print("sample.py <trained weights path> <trained model name> <input image> <output path> <search method (default: greedy)>")
     exit(0)
 else:
+    print("DEBUG:2")
     trained_weights_path = argv[0]
     trained_model_name = argv[1]
     input_path = argv[2]
@@ -25,6 +27,7 @@ else:
 meta_dataset = np.load("{}/meta_dataset.npy".format(trained_weights_path))
 input_shape = meta_dataset[0]
 output_size = meta_dataset[1]
+print("DEBUG:3")
 
 model = pix2code(input_shape, output_size, trained_weights_path)
 model.load(trained_model_name)
@@ -33,6 +36,8 @@ sampler = Sampler(trained_weights_path, input_shape, output_size, CONTEXT_LENGTH
 
 file_name = basename(input_path)[:basename(input_path).find(".")]
 evaluation_img = Utils.get_preprocessed_img(input_path, IMAGE_SIZE)
+
+print(search_method)
 
 if search_method == "greedy":
     result, _ = sampler.predict_greedy(model, np.array([evaluation_img]))
